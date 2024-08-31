@@ -20,6 +20,10 @@ function createUniqueId() {
   return id;
 }
 
+function init() {
+  console.log("hiu");
+}
+
 function createTask(value) {
   //   creating the actual task
 
@@ -30,6 +34,7 @@ function createTask(value) {
   task.prepend(checkbox);
   const deleteButton = document.createElement("div");
   deleteButton.classList.add("todo-list__delete-button");
+  deleteButton.addEventListener("click", deleteTask);
   task.append(deleteButton);
   task.classList.add("todo-list__task");
   const id = (task.dataset.taskid = createUniqueId());
@@ -46,13 +51,21 @@ function createTask(value) {
 }
 
 function saveTask(data) {
-  dataList.push(data);
+  if (data) {
+    dataList.push(data);
+  }
   dataString = JSON.stringify(dataList);
   localStorage.setItem("taskData", dataString);
 }
 
-function deleteTask(e) {
-  console.log("meow");
+function deleteTask() {
+  const deleteId = Number(this.parentElement.dataset.taskid);
+  console.log(deleteId);
+  const newData = dataList.filter((obj) => obj.id !== deleteId);
+  console.log(newData);
+  dataList = newData;
+  this.parentElement.remove();
+  saveTask();
 }
 
 function uploadData() {
@@ -64,7 +77,12 @@ function uploadData() {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     task.prepend(checkbox);
+    const deleteButton = document.createElement("div");
+    deleteButton.classList.add("todo-list__delete-button");
+    deleteButton.addEventListener("click", deleteTask);
+    task.append(deleteButton);
     task.classList.add("todo-list__task");
+    task.dataset.taskid = id;
     list.append(task);
   }
 }

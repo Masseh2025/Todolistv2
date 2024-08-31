@@ -140,9 +140,22 @@ textarea:not([rows]) {
 }
 
 .todo-list__task {
+  text-wrap: wrap;
   background-color: var(--background);
   padding: 0.5rem 1rem;
   border-radius: 0.5em;
   margin: 1rem 0;
-  text-align: left;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.todo-list__delete-button {
+  background-image: url(close.svg);
+  height: 24px;
+  width: 24px;
+  background-size: cover;
+  position: absolute;
+  right: 0%;
 }

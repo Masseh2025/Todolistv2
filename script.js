@@ -28,6 +28,9 @@ function createTask(value) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   task.prepend(checkbox);
+  const deleteButton = document.createElement("div");
+  deleteButton.classList.add("todo-list__delete-button");
+  task.append(deleteButton);
   task.classList.add("todo-list__task");
   const id = (task.dataset.taskid = createUniqueId());
   //   convert to object
@@ -48,8 +51,8 @@ function saveTask(data) {
   localStorage.setItem("taskData", dataString);
 }
 
-function deleteTask() {
-  console.log("hello");
+function deleteTask(e) {
+  console.log("meow");
 }
 
 function uploadData() {
